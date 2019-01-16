@@ -26,7 +26,7 @@ object Main extends App {
   val keyField = sys.env.get("PARTITION_KEY")
 
   val inputStream = builder
-    .stream[String, String]("com.arquivei.dataeng.andre")
+    .stream[String, String](sys.env("INPUT_TOPIC"))
   val log = LoggerFactory.getLogger(this.getClass)
   val mapStream = keyField match {
     case None => inputStream
@@ -41,7 +41,7 @@ object Main extends App {
       })
   }
 
-  mapStream.to("com.arquivei.dataeng.andre2")
+  mapStream.to(sys.env("OUTPUT_TOPIC"))
 
   val topology = builder.build()
 
