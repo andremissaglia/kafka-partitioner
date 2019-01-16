@@ -12,7 +12,7 @@ Run this image locally, or in kubernetes, setting the configs accordingly:
 version: '2'
 services:
   partitioner:
-    image: andremissaglia/kafka-partitioner:0.2.0
+    image: andremissaglia/kafka-partitioner:0.2.2
     environment:
 
 # Set the consumer configs.
@@ -35,9 +35,13 @@ services:
 ```
 
 ## Partition key
-If not specified, the key in the output topic will be the same as in the input topic.
-If a [https://github.com/json-path/JsonPath](JsonPath) is specified, the message will be parsed, and the key will be 
-the value of the specified field. Example:
+* If not specified, the key in the output topic will be null, and a random partition will be assigned.
+* If a [JsonPath](https://github.com/json-path/JsonPath) is specified, the message will be parsed, and the key will be 
+the value of the specified field. 
+
+Kafka guarantees that messages with the same key will always be on the same partition, so that order is preserved. 
+
+Example:
 
 ```json
 {
@@ -46,4 +50,4 @@ the value of the specified field. Example:
 }
 ```
 
-With a partition key `$.userId`, the output topic will have a message with key = `15` and value = `{"type":"user-click","userId":15}`
+When using the `PARTITION_KEY: "$.userId"`, the output topic will have a message with key = `15` and value = `{"type":"user-click","userId":15}`

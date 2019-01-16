@@ -10,6 +10,7 @@ import org.apache.kafka.streams.{KafkaStreams, StreamsConfig}
 import org.apache.kafka.streams.scala.StreamsBuilder
 import org.apache.kafka.streams.scala.ImplicitConversions._
 import org.apache.kafka.streams.scala.Serdes._
+import org.apache.kafka.streams.scala.kstream.KStream
 import org.slf4j.LoggerFactory
 
 import scala.io.Source
@@ -28,8 +29,8 @@ object Main extends App {
   val inputStream = builder
     .stream[String, String](sys.env("INPUT_TOPIC"))
   val log = LoggerFactory.getLogger(this.getClass)
-  val mapStream = keyField match {
-    case None => inputStream
+  val mapStream: KStream[String,String] = keyField match {
+    case None => inputStream.map((_, value) => (null, value))
     case Some(keyPath) =>
       val path = JsonPath.compile(keyPath)
       val jsonPathConfig = Configuration.builder().jsonProvider(new JacksonJsonNodeJsonProvider()).build()

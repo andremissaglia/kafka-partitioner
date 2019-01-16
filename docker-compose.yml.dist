@@ -2,7 +2,7 @@ version: '2'
 services:
   partitioner:
     build: .
-    image: andremissaglia/kafka-partitioner:0.2.0
+    image: andremissaglia/kafka-partitioner:0.2.2
     environment:
 
 # Set the consumer configs.
