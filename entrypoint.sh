@@ -14,6 +14,12 @@ sasl.mechanism=PLAIN
 application.id=$KAFKA_APPLICATION_ID
 bootstrap.servers=$KAFKA_SERVER
 EOF
+
+    if [ "$ENABLE_EOS" = "y" ]; then
+        cat >> $CONFIG_FILE <<EOF
+processing.guarantee=exactly_once
+EOF
+    fi
 fi
 
 [ ! -e $CONFIG_FILE ] && echo "$CONFIG_FILE does not exists!" && exit 1

@@ -12,7 +12,7 @@ Run this image locally, or in kubernetes, setting the configs accordingly:
 version: '2'
 services:
   partitioner:
-    image: andremissaglia/kafka-partitioner:0.1.0
+    image: andremissaglia/kafka-partitioner:0.2.0
     environment:
 
 # Set the consumer configs.
@@ -20,6 +20,7 @@ services:
       KAFKA_USER: "user"
       KAFKA_PASS: "pass"
       KAFKA_SERVER: "localhost:9092"
+      ENABLE_EOS: "y" # Optional: Enable EOS processing guarantee
 
 # Or, specify the consumer config file.
       CONFIG_FILE: ""
