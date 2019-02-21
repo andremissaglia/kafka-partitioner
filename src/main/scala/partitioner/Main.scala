@@ -27,7 +27,7 @@ object Main extends App {
   val keyField = sys.env.get("PARTITION_KEY")
 
   val inputStream = builder
-    .stream[String, String](sys.env("INPUT_TOPIC"))
+    .stream[String, String](sys.env("INPUT_TOPIC").split(",").toSet)
   val log = LoggerFactory.getLogger(this.getClass)
   val mapStream: KStream[String,String] = keyField match {
     case None => inputStream.map((_, value) => (null, value))
