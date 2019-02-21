@@ -12,7 +12,6 @@ Run this image locally, or in kubernetes, setting the configs accordingly:
 version: '2'
 services:
   partitioner:
-    build: .
     image: andremissaglia/kafka-partitioner:0.2.3
     environment:
 
