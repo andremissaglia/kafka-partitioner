@@ -12,7 +12,7 @@ Run this image locally, or in kubernetes, setting the configs accordingly:
 version: '2'
 services:
   partitioner:
-    image: andremissaglia/kafka-partitioner:0.2.2
+    image: andremissaglia/kafka-partitioner:0.2.3
     environment:
 
 # Set the consumer configs.
@@ -20,16 +20,16 @@ services:
       KAFKA_USER: "user"
       KAFKA_PASS: "pass"
       KAFKA_SERVER: "localhost:9092"
-      ENABLE_EOS: "y" # Optional: Enable EOS processing guarantee
+      ENABLE_EOS: "y" # Optional: Enable EOS processing guarantee (y/n)
 
 # Or, specify the consumer config file.
       CONFIG_FILE: ""
 
 # Where to read/write.
-      INPUT_TOPIC: "input"
+      INPUT_TOPIC: "input1,input2" (use comma as a delimiter if multiple topics)
       OUTPUT_TOPIC: "output"
 
-# Optional: JSONPath for the field to use as key. 
+# Optional: JSONPath for the field to use as key.
 # If not specified, kafka will randomly choose a partition
       PARTITION_KEY: "$.userId"
 ```
